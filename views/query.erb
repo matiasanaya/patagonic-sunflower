@@ -33,7 +33,29 @@
 
     <div class="container">
 
-    	
+    	<% if locals[:alert] %>
+			<div class="alert alert-error">
+	  			<h5><%= locals[:alert] %><h5>
+			</div>
+		<% end %>
+		<form name="input" action="/query" method="post">
+			<fieldset>
+    			<legend>Patagonic Sunflower</legend>
+    			<label>Latitude</label>
+    			<input type="text" name="lat" placeholder="Ingrese latitud">
+    			<label>Longitud</label>
+    			<input type="text" name="long" placeholder="Ingrese longitud">
+    			<label>Time Zone</label>
+				<select name="tmz">
+					<% timezones.each do |timezone| %>
+						<option value="<%= timezone %>"><%= timezone %></option>
+					<% end %>
+				</select>
+				<br />
+				<br />
+    			<button type="submit" class="btn btn-primary btn-large">Submit</button>
+  			</fieldset>
+		</form>
 
     </div> <!-- /container -->
 

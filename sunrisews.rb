@@ -6,7 +6,19 @@ require 'json'
 set :public_folder, 'public'
 
 get '/query' do
-  erb :query
+  argentinazones = ['Buenos_Aires','Medoza','Cordoba']
+  timezones = argentinazones.map { |e| e = "America/#{e}" }
+  locals = {:timezones => timezones}
+  locals[:alert] = 'Debe ingresar latitud y longitud' if params[:invalid]
+  erb :query, :locals => locals
+end
+
+post '/query' do
+  if !params[:lat].empty? && !params[:long].empty? && !params[:tmz].empty?
+    target_url = "/sunrise/today/#{params[:lat]}/#{params[:long]}/#{params[:tmz]}"
+    redirect target_url
+  end
+  redirect '/query?invalid=true'
 end
 
 get '/sunrise/today/:lat/:lng/:tz1/:tz2' do
