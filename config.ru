@@ -1,2 +1,2 @@
-require './sunrisews'
+require 'sunrisews.rb'
 run Sinatra::Application
