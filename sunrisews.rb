@@ -3,6 +3,12 @@ require 'sinatra'
 require 'solareventcalculator'
 require 'json'
 
+set :public_folder, 'public'
+
+get '/query' do
+  erb :query
+end
+
 get '/sunrise/today/:lat/:lng/:tz1/:tz2' do
   timezone = params[:tz1] + '/' + params[:tz2]
   events = events_map(Date.today, BigDecimal.new(params[:lat]), BigDecimal.new(params[:lng]), timezone)
